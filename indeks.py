@@ -48,9 +48,33 @@ def index_documents(documents: list[str], queries: list[str]) -> list[list[int]]
         list[list[int]]: Lista wyników dla kolejnych zapytań.
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
+    import numpy as np
+    words_small = [item.lower() for item in documents]
+    words = [item.split() for item in words_small]
+    limiters_small = [item.lower() for item in queries]
+    limiters = [item.split(' ') for item in limiters_small]
+    slowa = []
+    for i in range(0, len(limiters)):
+        for j in range(0, len(words)):
+            limiter = "".join(limiters[i])
+            print(limiter)
+            liczba = words[j].count(limiter)
+            print(liczba)
+            slowa.append(liczba)
+    print(slowa)
+    liczba_doc = len(documents)
+    macierz = [slowa[i:i + liczba_doc] for i in range(0, len(slowa), len(documents))]
+    print(macierz)
+    macierz = np.array(macierz)
+    print(macierz)
+    macierz_sort = []
+    for rzad in macierz:
+        # Tworzymy listę indeksów, sortując je po wartościach (wstawiamy None w miejsce 0)
+        sorted_indices = sorted(range(len(rzad)), key=lambda x: (rzad[x] is not None, rzad[x]), reverse=True)
+        macierz_sort.append(sorted_indices)
 
     ### return [[]] - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
-    return [[]]
+    return macierz_sort
 
 
 # Przykładowe wywołanie:

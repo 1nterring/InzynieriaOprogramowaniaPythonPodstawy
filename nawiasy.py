@@ -31,9 +31,17 @@ def check_parentheses(s: str) -> bool:
         bool: True jeśli nawiasy są poprawne, False w przeciwnym wypadku.
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
-
+    stos = []
+    for znak in s:
+        if znak == '(':
+            stos.append(znak)
+        elif znak == ')':
+            if not stos:
+                return False
+            stos.pop()
+    return not stos
     ### return False - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
-    return False
+
 
 # Przykładowe wywołanie:
 if __name__ == "__main__":
